@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  post: MyString
+  created_at: 2019-11-09 16:22:31
+  user_id: 
+
+two:
+  post: MyString
+  created_at: 2019-11-09 16:22:31
+  user_id: 
