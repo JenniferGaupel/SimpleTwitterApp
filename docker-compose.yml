@@ -10,6 +10,17 @@ services:
     volumes:
       - ./backend:/simpleTwitterApp
     ports:
-      - "3000:3000"
+      - "8888:8888"
+      - "8889:8889"
     depends_on:
       - db
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    volumes:
+      - ./frontend:/var/www/frontend
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
