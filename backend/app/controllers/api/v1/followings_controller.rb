@@ -1,5 +1,6 @@
 class Api::V1::FollowingsController < ApplicationController
   before_action :set_following, only: [:show, :update, :destroy]
+  before_action :authorize_request, except: :create
 
   # GET /followings
   def index
@@ -15,12 +16,23 @@ class Api::V1::FollowingsController < ApplicationController
 
   # POST /followings
   def create
-    @following = Following.new(following_params)
+    follower_id = params.delete(:follower_id)
+    followed_id = params.delete(:followed_id)
 
-    if @following.save
-      render json: @following, status: :created, location: api_v1_following_url(@following)
+    @follower = User.find_by_id(follower_id)
+    @followed = User.find_by_id(followed_id)
+    if @follower == nil and @followed == nil
+      render json: { errors: "Error finding follower user or followed user" },
+        status: :unprocessable_entity
     else
-      render json: @following.errors, status: :unprocessable_entity
+      @following = Following.new(following_params)
+      @following.follower_user = @follower
+      @following.followed_user = @followed
+      if @following.save
+        render json: @following, status: :created, location: api_v1_following_url(@following)
+      else
+        render json: @following.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -36,6 +48,8 @@ class Api::V1::FollowingsController < ApplicationController
   # DELETE /followings/1
   def destroy
     @following.destroy
+    render json: { msg: "Following deleted" },
+        status: :ok
   end
 
   private
@@ -46,6 +60,6 @@ class Api::V1::FollowingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def following_params
-      params.require(:following).permit(:created_at, :follower_id, :followed_id)
+      params.permit(:created_at, :follower_id, :followed_id)
     end
 end

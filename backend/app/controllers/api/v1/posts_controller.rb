@@ -1,26 +1,36 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :authorize_request 
   before_action :set_post, only: [:show, :update, :destroy]
 
   # GET /posts
   def index
+    p "Testing"
     @posts = Post.all
 
-    render json: @posts
+    render json: @posts, status: :ok
   end
 
   # GET /posts/1
   def show
-    render json: @post
+    render json: @posts
   end
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    user_id = params.delete(:user_id)
 
-    if @post.save
-      render json: @post, status: :created, location: api_v1_post_url(@post)
+    @user = User.find_by_id(user_id)
+    if @user == nil
+      render json: { errors: "Error finding user" },
+        status: :unprocessable_entity
     else
-      render json: @post.errors, status: :unprocessable_entity
+      @post = Post.new(post_params)
+      @post.user = @user
+      if @post.save
+        render json: @post, status: :created, location: api_v1_post_url(@post)
+      else
+        render json: @post.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -46,6 +56,6 @@ class Api::V1::PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:post, :created_at, :user_id)
+      params.permit(:post, :created_at, :user_id)
     end
 end

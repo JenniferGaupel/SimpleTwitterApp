@@ -1,6 +1,4 @@
-p "JSON Web Token class created..."
 class JsonWebToken
-    p "JSON Web Token class created..."
     SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
   
     def self.encode(payload, exp = 24.hours.from_now)
