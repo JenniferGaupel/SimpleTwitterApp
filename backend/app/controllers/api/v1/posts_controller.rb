@@ -4,7 +4,6 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts
   def index
-    p "Testing"
     @posts = Post.all
 
     render json: @posts, status: :ok
@@ -46,6 +45,38 @@ class Api::V1::PostsController < ApplicationController
   # DELETE /posts/1
   def destroy
     @post.destroy
+
+    render json: { msg: "Post deleted" },
+    status: :ok
+  end
+
+  # GET /feed
+  def get_feed
+    # Get all posts from the user's that I follow 
+    followed_posts = Array.new
+    user_id = params[:user_id]
+    @followings = Following.where(follower_id: user_id)
+    @followings.each do |following|
+      @posts = Post.where(user_id: following.followed_id)
+      @posts.each do |post|
+        followed_posts.push(post)
+      end
+    end 
+    render json: followed_posts,
+    status: :ok 
+  end
+
+  # GET /userposts
+  def get_user_posts
+    # get all of a single user's posts
+    user_posts = Array.new
+    user_id = params[:user_id]
+    @posts = Post.where(user_id: user_id)
+    @posts.each do |post|
+      user_posts.push(post)
+    end 
+    render json: user_posts,
+    status: :ok 
   end
 
   private

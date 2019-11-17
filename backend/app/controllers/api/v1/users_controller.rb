@@ -35,6 +35,9 @@ class Api::V1::UsersController < ApplicationController
   # DELETE /users/{username}
   def destroy
     @user.destroy
+
+    render json: { msg: "User deleted" },
+    status: :ok
   end
 
   private

@@ -1,6 +1,6 @@
 class Api::V1::FollowingsController < ApplicationController
+  before_action :authorize_request
   before_action :set_following, only: [:show, :update, :destroy]
-  before_action :authorize_request, except: :create
 
   # GET /followings
   def index
@@ -50,6 +50,35 @@ class Api::V1::FollowingsController < ApplicationController
     @following.destroy
     render json: { msg: "Following deleted" },
         status: :ok
+  end
+
+  # DELETE /unfollow/
+  def unfollow
+    # Delete a following record to unfollow. 
+    # Using instead of built-in destroy method as it uses the id and this needs to search on follower/followed ids
+    follower_id = params[:follower_id]
+    followed_id = params[:followed_id]
+
+    @following = Following.find_by(follower_id: follower_id, followed_id: followed_id)
+    @following.destroy
+    render json: { msg: "User unfollowed" },
+        status: :ok
+  end
+
+  # GET /checkfollowings/
+  def check_following
+    # Check to see if the user is already following another user
+    follower_id = params[:follower_id]
+    followed_id = params[:followed_id]
+
+    @following = Following.find_by(follower_id: follower_id, followed_id: followed_id)
+    if @following == nil
+      render json: { result: false },
+      status: :ok 
+    else
+      render json: { result: true },
+      status: :ok
+    end    
   end
 
   private
