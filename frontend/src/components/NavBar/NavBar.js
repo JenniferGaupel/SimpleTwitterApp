@@ -6,7 +6,7 @@ const { SubMenu } = Menu;
 
 class NavBar extends React.Component {
     state = {
-        current: 'mail',
+        current: 'feed',
     };
 
     handleClick = e => {
@@ -19,14 +19,42 @@ class NavBar extends React.Component {
     render() {
         return (
             <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-                <Menu.Item key="mail">
-                    <Icon type="mail" />
-                    Navigation One
-            </Menu.Item>
-                <Menu.Item key="app" disabled>
-                    <Icon type="appstore" />
-                    Navigation Two
-            </Menu.Item>
+                <Menu.Item key="feed">
+                    <Link to='/Feed'>
+                        <Icon type="user-add" />
+                        Feed
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="profile">
+                    <Link to='/Profile'>
+                        <Icon type="user-add" />
+                        Profile
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="users">
+                    <Link to='/Users'>
+                        <Icon type="user-add" />
+                        All Users
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="userposts">
+                    <Link to='/UserPosts'>
+                        <Icon type="user-add" />
+                        Posts
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="signup">
+                    <Link to='/Signup'>
+                        <Icon type="user-add" />
+                        Signup
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="login">
+                    <Link to='/Login'>
+                        <Icon type="user-add" />
+                        Login
+                    </Link>
+                </Menu.Item>
                 <SubMenu
                     title={
                         <span className="submenu-title-wrapper">
