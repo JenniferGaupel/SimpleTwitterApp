@@ -13,7 +13,7 @@ class Users extends Component {
 
     async componentDidMount() {
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0MjEzMjgxfQ.n5wbIsMBXCnVLbkScg1Z-Iry28qgZ034DKTHQUUuAcQ';
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQyNjk4Mzd9.X-HzLpdIR7LIuCVQonrKUd4JZH2jsJdn3d_tT49MF9c';
         //const users2 = (await API.get('/users')).data;
         const users = (await API.get('/api/v1/users', { headers: { "Authorization": `Bearer ${token}` } })).data;
         this.setState({
@@ -25,10 +25,10 @@ class Users extends Component {
         return (
             <div>
                 {this.state.users ? this.state.users.map(user => (
-                            <p>
-                                {user.username}
-                            </p>
-                    )) : <span>Loading...</span>
+                    <p>
+                        {user.username} 
+                    </p>
+                )) : <span>Loading...</span>
                 }
             </div>
         )

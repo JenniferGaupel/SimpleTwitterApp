@@ -8,6 +8,8 @@ import Feed from './components/Feed/Feed';
 import UserPosts from './components/UserPosts/UserPosts';
 import Profile from './components/Profile/Profile';
 import Users from './components/Users/Users';
+import CreatePost from './components/CreatePost/CreatePost';
+import Follow from './components/Follow/Follow';
 import { Layout } from 'antd';
 import { Route } from 'react-router-dom';
 
@@ -27,6 +29,8 @@ function App() {
             <Route exact path='/UserPosts/' component={UserPosts} />
             <Route exact path='/Profile/' component={Profile} />
             <Route exact path='/Users/' component={Users} />
+            <Route exact path='/CreatePost/' component={CreatePost} />
+            <Route exact path='/Follow/' component={Follow} />
           </Content>
       </Layout>
     </div>

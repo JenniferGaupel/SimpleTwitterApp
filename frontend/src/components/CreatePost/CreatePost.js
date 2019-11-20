@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
 
-class UserPosts extends Component {
+class CreatePost extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            password: "",
-            username: ""
+            postText: ""
         };
     }
 
@@ -20,49 +19,44 @@ class UserPosts extends Component {
     }
 
     getPostData = () => {
+
         return {
-            username: this.state.username, 
-            password: this.state.password
+            post: this.state.postText, 
+            user_id: 2
+            
         }
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log("Posting our user");
-        API.post('/api/v1/userposts', this.getPostData())
+        console.log("Creating our post");
+        // Hardcoding for testing
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQyNjk4Mzd9.X-HzLpdIR7LIuCVQonrKUd4JZH2jsJdn3d_tT49MF9c';
+        API.post('/api/v1/posts', this.getPostData(),{ headers: { "Authorization": `Bearer ${token}` }})
             .then((res) => {
                 console.log(res);
-                message.success("Login succesful!");
+                message.success("New post succesful!");
                 this.props.history.push('/');                
             });
     }
 
     validateForm() {
-        return this.state.password.length > 0
-            && this.state.username.length > 0;
+        return this.state.postText.length > 0
+            && this.state.postText.length < 258;
     }
 
 
     render() {
         return (
-            <div className="UserPosts">
+            <div className="Post">
                 <Form onSubmit={this.handleSubmit}>
-                    <div id="username">
-                        <label>Username</label>
+                    <div id="postText">
+                        <label>Post</label>
                         <Input
-                            id="username"
-                            type="username"
-                            value={this.state.username}
+                            id="postText"
+                            type="TextArea"
+                            value={this.state.postText}
                             onChange={this.handleChange}
-                        />
-                    </div>
-                    <div id="password">
-                        <label>Password</label>
-                        <Input
-                            id="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            type="password"
                         />
                     </div>
                     <Button type="primary" disabled={!this.validateForm()} htmlType="submit">
@@ -75,4 +69,4 @@ class UserPosts extends Component {
 }
 
 
-export default UserPosts;
+export default CreatePost;

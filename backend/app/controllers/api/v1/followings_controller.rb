@@ -16,6 +16,7 @@ class Api::V1::FollowingsController < ApplicationController
 
   # POST /followings
   def create
+    p following_params
     follower_id = params.delete(:follower_id)
     followed_id = params.delete(:followed_id)
 
@@ -25,7 +26,7 @@ class Api::V1::FollowingsController < ApplicationController
       render json: { errors: "Error finding follower user or followed user" },
         status: :unprocessable_entity
     else
-      @following = Following.new(following_params)
+      @following = Following.new()
       @following.follower_user = @follower
       @following.followed_user = @followed
       if @following.save
@@ -89,6 +90,6 @@ class Api::V1::FollowingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def following_params
-      params.permit(:created_at, :follower_id, :followed_id)
+      params.permit(:created_at, :follower_id, :followed_id, :following)
     end
 end

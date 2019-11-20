@@ -16,7 +16,8 @@ class Api::V1::PostsController < ApplicationController
 
   # POST /posts
   def create
-    user_id = params.delete(:user_id)
+    p params
+    user_id = params.delete(:userid)
 
     @user = User.find_by_id(user_id)
     if @user == nil
@@ -54,7 +55,7 @@ class Api::V1::PostsController < ApplicationController
   def get_feed
     # Get all posts from the user's that I follow 
     followed_posts = Array.new
-    user_id = params[:user_id]
+    user_id = params[:userid]
     @followings = Following.where(follower_id: user_id)
     @followings.each do |following|
       @posts = Post.where(user_id: following.followed_id)

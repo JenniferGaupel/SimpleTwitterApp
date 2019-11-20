@@ -43,10 +43,22 @@ class NavBar extends React.Component {
                         Posts
                     </Link>
                 </Menu.Item>
+                <Menu.Item key="follow">
+                    <Link to='/Follow'>
+                        <Icon type="user-add" />
+                        Follow
+                    </Link>
+                </Menu.Item>                
                 <Menu.Item key="signup">
                     <Link to='/Signup'>
                         <Icon type="user-add" />
                         Signup
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="createpost">
+                    <Link to='/CreatePost'>
+                        <Icon type="user-add" />
+                        Create Post
                     </Link>
                 </Menu.Item>
                 <Menu.Item key="login">
