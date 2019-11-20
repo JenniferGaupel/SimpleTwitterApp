@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
 import Follow from '../Follow/Follow';
+import CreatePost from '../CreatePost/CreatePost';
+import '../../styles/SimpleStyles.css';
 
 class Profile extends Component {
     constructor(props) {
@@ -14,7 +16,7 @@ class Profile extends Component {
 
     async componentDidMount() {
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3OTg5fQ.XIieOBQHgSImwhZCICBqBjl5l9WlXghj4DG8U04v39s';
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNTIxNzh9.mot78VjfPwP2qS4TTxxzxBPgTKXJCgx4IIDC8dmJ3qQ';
         const { match: {params } } = this.props;
         const user = (await API.get(`/api/v1/users/${params.username}`, { headers: { "Authorization": `Bearer ${token}` } })).data;
         this.setState({
@@ -27,8 +29,9 @@ class Profile extends Component {
             <div>
                 {this.state.user ? (
                     <p>
-                        Profile for: {this.state.user.username} 
-                        <Follow />
+                        Profile for: {this.state.user.username} <br/>
+                        <Follow /><br/>
+                        <CreatePost />
                     </p>
                 ) : <span>Loading...</span>
                 }

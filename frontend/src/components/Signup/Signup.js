@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
+import '../../styles/SimpleStyles.css';
 
 class Signup extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ class Signup extends Component {
                         />
                     </div>
                     <Button type="primary" disabled={!this.validateForm()} htmlType="submit">
-                        Login
+                        Signup
                     </Button>
                 </Form>
             </div>

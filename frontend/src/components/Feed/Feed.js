@@ -12,7 +12,7 @@ class Feed extends Component {
 
     async componentDidMount() {
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3MjQ1fQ.zSCcPIG0nvUvAWCl7J_PsPHXGy4aCsuVyZEazjAKFyY';
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNTIxNzh9.mot78VjfPwP2qS4TTxxzxBPgTKXJCgx4IIDC8dmJ3qQ';
         const { match: {params } } = this.props;
         const feed = (await API.get(`/api/v1/feed/${params.username}`, { headers: { "Authorization": `Bearer ${token}` } })).data;
         this.setState({

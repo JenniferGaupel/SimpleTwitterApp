@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
+import '../../styles/SimpleStyles.css';
 
 class Login extends Component {
     constructor(props) {
@@ -45,10 +46,10 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="Login">
+            <div className="Signup">
                 <Form onSubmit={this.handleSubmit}>
                     <div id="username">
-                        <label>Username</label>
+                        <label>Username: </label>
                         <Input
                             id="username"
                             type="username"
@@ -57,7 +58,7 @@ class Login extends Component {
                         />
                     </div>
                     <div id="password">
-                        <label>Password</label>
+                        <label>Password: </label>
                         <Input
                             id="password"
                             value={this.state.password}

@@ -14,7 +14,7 @@ class Users extends Component {
 
     async componentDidMount() {
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3MjQ1fQ.zSCcPIG0nvUvAWCl7J_PsPHXGy4aCsuVyZEazjAKFyY';
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNTIxNzh9.mot78VjfPwP2qS4TTxxzxBPgTKXJCgx4IIDC8dmJ3qQ';
         //const users2 = (await API.get('/users')).data;
         const users = (await API.get('/api/v1/users', { headers: { "Authorization": `Bearer ${token}` } })).data;
         this.setState({
