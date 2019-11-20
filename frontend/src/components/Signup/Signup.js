@@ -21,7 +21,7 @@ class Signup extends Component {
 
     getPostData = () => {
         return {
-            username: this.state.username, 
+            username: this.state.username,
             password: this.state.password
         }
     }
@@ -33,7 +33,7 @@ class Signup extends Component {
             .then((res) => {
                 console.log(res);
                 message.success("Signup succesful!");
-                this.props.history.push('/');                
+                this.props.history.push('/');
             });
     }
 

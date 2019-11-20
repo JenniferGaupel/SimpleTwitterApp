@@ -3,11 +3,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/auth/login', to: 'authentication#login'
       resources :users, param: :_username
-      resources :posts
+      resources :posts, param: :_username
       resources :followings
       get '/feed', to: 'posts#get_feed'
       get '/userposts', to: 'posts#get_user_posts'
-      get '/checkfollowings', to: 'followings#check_following'
+      post '/checkfollowings', to: 'followings#check_following'
       delete '/unfollow', to: 'followings#unfollow'
       get '/*a', to: 'application#not_found'
     end

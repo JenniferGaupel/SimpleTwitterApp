@@ -31,7 +31,7 @@ class CreatePost extends Component {
         event.preventDefault();
         console.log("Creating our post");
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQyNjk4Mzd9.X-HzLpdIR7LIuCVQonrKUd4JZH2jsJdn3d_tT49MF9c';
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3MjQ1fQ.zSCcPIG0nvUvAWCl7J_PsPHXGy4aCsuVyZEazjAKFyY';
         API.post('/api/v1/posts', this.getPostData(),{ headers: { "Authorization": `Bearer ${token}` }})
             .then((res) => {
                 console.log(res);

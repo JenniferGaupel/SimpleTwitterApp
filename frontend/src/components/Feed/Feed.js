@@ -5,16 +5,16 @@ import { Button, Input, message, Form } from 'antd';
 class Feed extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            feed: null
+            feed: null,
         };
     }
 
     async componentDidMount() {
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQyNjk4Mzd9.X-HzLpdIR7LIuCVQonrKUd4JZH2jsJdn3d_tT49MF9c';
-        const feed = (await API.get('/api/v1/posts', { headers: { "Authorization": `Bearer ${token}` } })).data;
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3MjQ1fQ.zSCcPIG0nvUvAWCl7J_PsPHXGy4aCsuVyZEazjAKFyY';
+        const { match: {params } } = this.props;
+        const feed = (await API.get(`/api/v1/feed/${params.username}`, { headers: { "Authorization": `Bearer ${token}` } })).data;
         this.setState({
             feed: feed
         });

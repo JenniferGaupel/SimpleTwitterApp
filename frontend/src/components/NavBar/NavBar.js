@@ -42,13 +42,7 @@ class NavBar extends React.Component {
                         <Icon type="user-add" />
                         Posts
                     </Link>
-                </Menu.Item>
-                <Menu.Item key="follow">
-                    <Link to='/Follow'>
-                        <Icon type="user-add" />
-                        Follow
-                    </Link>
-                </Menu.Item>                
+                </Menu.Item>              
                 <Menu.Item key="signup">
                     <Link to='/Signup'>
                         <Icon type="user-add" />
@@ -66,28 +60,6 @@ class NavBar extends React.Component {
                         <Icon type="user-add" />
                         Login
                     </Link>
-                </Menu.Item>
-                <SubMenu
-                    title={
-                        <span className="submenu-title-wrapper">
-                            <Icon type="setting" />
-                            Navigation Three - Submenu
-                </span>
-                    }
-                >
-                    <Menu.ItemGroup title="Item 1">
-                        <Menu.Item key="setting:1">Option 1</Menu.Item>
-                        <Menu.Item key="setting:2">Option 2</Menu.Item>
-                    </Menu.ItemGroup>
-                    <Menu.ItemGroup title="Item 2">
-                        <Menu.Item key="setting:3">Option 3</Menu.Item>
-                        <Menu.Item key="setting:4">Option 4</Menu.Item>
-                    </Menu.ItemGroup>
-                </SubMenu>
-                <Menu.Item key="alipay">
-                    <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-                        Navigation Four - Link
-                </a>
                 </Menu.Item>
             </Menu>
         );

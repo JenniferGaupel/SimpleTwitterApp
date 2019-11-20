@@ -16,12 +16,15 @@ class Api::V1::FollowingsController < ApplicationController
 
   # POST /followings
   def create
-    p following_params
     follower_id = params.delete(:follower_id)
     followed_id = params.delete(:followed_id)
-
+    p "!!!!!!!!!!!!!!!"
+    p follower_id
+    p followed_id
     @follower = User.find_by_id(follower_id)
     @followed = User.find_by_id(followed_id)
+    p @follower
+    p @followed
     if @follower == nil and @followed == nil
       render json: { errors: "Error finding follower user or followed user" },
         status: :unprocessable_entity
@@ -66,13 +69,15 @@ class Api::V1::FollowingsController < ApplicationController
         status: :ok
   end
 
-  # GET /checkfollowings/
+  # POST /checkfollowings/
   def check_following
     # Check to see if the user is already following another user
+    p params
     follower_id = params[:follower_id]
     followed_id = params[:followed_id]
 
     @following = Following.find_by(follower_id: follower_id, followed_id: followed_id)
+    p @following
     if @following == nil
       render json: { result: false },
       status: :ok 

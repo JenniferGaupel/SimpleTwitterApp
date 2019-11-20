@@ -7,6 +7,8 @@ class Follow extends Component {
         super(props);
 
         this.state = {
+            isFollowing: null,
+            loading: true
         };
     }
 
@@ -20,35 +22,71 @@ class Follow extends Component {
     getPostData = () => {
 
         return {
-            follower_id: 2,
-            followed_id: 1
+            follower_id: 13,
+            followed_id: 14
         }
+    }
+
+    async componentDidMount() {
+        // Hardcoding for testing
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3MjQ1fQ.zSCcPIG0nvUvAWCl7J_PsPHXGy4aCsuVyZEazjAKFyY';
+        //const users2 = (await API.get('/users')).data;
+        const isFollowing = (await API.post('/api/v1/checkfollowings/', this.getPostData(), { headers: { "Authorization": `Bearer ${token}` } })).data;
+        console.log(isFollowing);
+        this.setState({
+            isFollowing: isFollowing.result,
+            loading: false
+        });
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log("Creating our following");
+        
+        this.setState({
+            loading: true
+        });
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQyNjk4Mzd9.X-HzLpdIR7LIuCVQonrKUd4JZH2jsJdn3d_tT49MF9c';
-        API.post('/api/v1/followings', this.getPostData(), { headers: { "Authorization": `Bearer ${token}` }})
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3MjQ1fQ.zSCcPIG0nvUvAWCl7J_PsPHXGy4aCsuVyZEazjAKFyY';
+
+        if (!this.state.isFollowing) {
+            API.post('/api/v1/followings', this.getPostData(), { headers: { "Authorization": `Bearer ${token}` } })
             .then((res) => {
-                console.log(res);
-                message.success("Follow succesful!");
-                this.props.history.push('/');                
+                this.setState({
+                    isFollowing: true,
+                    loading: false
+    
+                });
+                message.success("Follow successful!");
             });
+
+        } else {
+            API.delete('/api/v1/unfollow', this.getPostData(), { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => {
+                this.setState({
+                    isFollowing: false,
+                    loading: false
+
+                });
+                message.success("Unfollow successful!");
+            });
+        }
     }
 
 
     render() {
         return (
             <div className="Follow">
+
                 <Form onSubmit={this.handleSubmit}>
-                    <div id="Follow">
-                        <label>Follow</label>
-                    </div>
-                    <Button type="primary" htmlType="submit">
-                        Follow
-                    </Button>
+                    {this.state.isFollowing ?
+                        <Button loading={this.state.loading} type="primary" htmlType="submit">
+                            Unfollow
+                        </Button>
+                        :
+                        <Button loading={this.state.loading} type="primary" htmlType="submit">
+                            Follow
+                        </Button>
+                    }
                 </Form>
             </div>
         )

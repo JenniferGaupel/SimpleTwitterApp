@@ -1,6 +1,7 @@
 class Api::V1::PostsController < ApplicationController
   before_action :authorize_request 
   before_action :set_post, only: [:show, :update, :destroy]
+  before_action :find_user, except: %i[create index]
 
   # GET /posts
   def index
@@ -51,11 +52,11 @@ class Api::V1::PostsController < ApplicationController
     status: :ok
   end
 
-  # GET /feed
+  # GET /feed/{username}
   def get_feed
     # Get all posts from the user's that I follow 
     followed_posts = Array.new
-    user_id = params[:userid]
+    user_id = @user.id
     @followings = Following.where(follower_id: user_id)
     @followings.each do |following|
       @posts = Post.where(user_id: following.followed_id)
@@ -81,6 +82,12 @@ class Api::V1::PostsController < ApplicationController
   end
 
   private
+
+    def find_user
+      @user = User.find_by_username!(params[:_username])
+      rescue ActiveRecord::RecordNotFound
+        render json: { errors: 'User not found' }, status: :not_found
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])

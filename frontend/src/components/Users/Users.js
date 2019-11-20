@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
+import { Link } from 'react-router-dom';
 
 class Users extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class Users extends Component {
 
     async componentDidMount() {
         // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQyNjk4Mzd9.X-HzLpdIR7LIuCVQonrKUd4JZH2jsJdn3d_tT49MF9c';
+        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTc0Mjk3MjQ1fQ.zSCcPIG0nvUvAWCl7J_PsPHXGy4aCsuVyZEazjAKFyY';
         //const users2 = (await API.get('/users')).data;
         const users = (await API.get('/api/v1/users', { headers: { "Authorization": `Bearer ${token}` } })).data;
         this.setState({
@@ -26,7 +27,9 @@ class Users extends Component {
             <div>
                 {this.state.users ? this.state.users.map(user => (
                     <p>
-                        {user.username} 
+                        <Link to={`/Profile/${user.username}`}>
+                            {user.username} 
+                        </Link>
                     </p>
                 )) : <span>Loading...</span>
                 }
