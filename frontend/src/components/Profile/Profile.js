@@ -4,6 +4,7 @@ import { Button, Input, message, Form } from 'antd';
 import Follow from '../Follow/Follow';
 import CreatePost from '../CreatePost/CreatePost';
 import '../../styles/SimpleStyles.css';
+import { authenticationService } from '../../services/Auth';
 
 class Profile extends Component {
     constructor(props) {
@@ -15,10 +16,8 @@ class Profile extends Component {
     }
 
     async componentDidMount() {
-        // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNTIxNzh9.mot78VjfPwP2qS4TTxxzxBPgTKXJCgx4IIDC8dmJ3qQ';
         const { match: {params } } = this.props;
-        const user = (await API.get(`/api/v1/users/${params.username}`, { headers: { "Authorization": `Bearer ${token}` } })).data;
+        const user = (await API.get(`/api/v1/users/${params.username}`, { headers: { "Authorization": authenticationService.getJwt() } })).data;
         this.setState({
             user: user
         });
@@ -29,9 +28,10 @@ class Profile extends Component {
             <div>
                 {this.state.user ? (
                     <p>
-                        Profile for: {this.state.user.username} <br/>
-                        <Follow /><br/>
-                        <CreatePost />
+                        Profile for: {this.state.user.username} 
+                        {this.state.user.username != authenticationService.getLoggedInUser() &&
+                            <Follow followed={this.state.user.username} />
+                        }
                     </p>
                 ) : <span>Loading...</span>
                 }

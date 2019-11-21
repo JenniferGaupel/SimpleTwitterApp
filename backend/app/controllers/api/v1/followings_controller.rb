@@ -1,6 +1,7 @@
 class Api::V1::FollowingsController < ApplicationController
   before_action :authorize_request
   before_action :set_following, only: [:show, :update, :destroy]
+  before_action :find_user, except: %i[index]
 
   # GET /followings
   def index
@@ -88,6 +89,13 @@ class Api::V1::FollowingsController < ApplicationController
   end
 
   private
+
+    def find_user
+      @user = User.find_by_username!(params[:_username])
+      rescue ActiveRecord::RecordNotFound
+        render json: { errors: 'User not found' }, status: :not_found
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_following
       @following = Following.find(params[:id])

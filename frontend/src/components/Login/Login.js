@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
 import '../../styles/SimpleStyles.css';
+import { authenticationService } from '../../services/Auth';
 
 class Login extends Component {
     constructor(props) {
         super(props);
+
+        // redirect to home if already logged in
+        if (!authenticationService.isUserLoggedIn) { 
+            this.props.history.push('/');
+        }
 
         this.state = {
             password: "",
@@ -33,9 +39,17 @@ class Login extends Component {
         API.post('/api/v1/auth/login', this.getPostData())
             .then((res) => {
                 console.log(res);
+                localStorage.setItem('jwt', res.data.token);
+                localStorage.setItem('username', res.data.username);
                 message.success("Login succesful!");
-                this.props.history.push('/');                
+                // hack to get the navbar to reload
+                // TODO: fix this
+                this.props.history.push('/');
+                window.location.reload(false);            
+            }).catch(error => {
+                message.error("Incorrect username or password.");
             });
+
     }
 
     validateForm() {

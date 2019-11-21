@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
+import { authenticationService } from '../../services/Auth';
 
 class Feed extends Component {
     constructor(props) {
@@ -11,10 +12,8 @@ class Feed extends Component {
     }
 
     async componentDidMount() {
-        // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNTIxNzh9.mot78VjfPwP2qS4TTxxzxBPgTKXJCgx4IIDC8dmJ3qQ';
         const { match: {params } } = this.props;
-        const feed = (await API.get(`/api/v1/feed/${params.username}`, { headers: { "Authorization": `Bearer ${token}` } })).data;
+        const feed = (await API.get(`/api/v1/feed/${params.username}`, { headers: { "Authorization": authenticationService.getJwt() } })).data;
         this.setState({
             feed: feed
         });

@@ -1,7 +1,7 @@
 class Api::V1::PostsController < ApplicationController
   before_action :authorize_request 
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :find_user, except: %i[create index]
+  before_action :find_user, except: %i[index]
 
   # GET /posts
   def index
@@ -17,10 +17,6 @@ class Api::V1::PostsController < ApplicationController
 
   # POST /posts
   def create
-    p params
-    user_id = params.delete(:userid)
-
-    @user = User.find_by_id(user_id)
     if @user == nil
       render json: { errors: "Error finding user" },
         status: :unprocessable_entity

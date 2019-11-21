@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
+import { authenticationService } from '../../services/Auth';
 
 class Follow extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class Follow extends Component {
 
         this.state = {
             isFollowing: null,
-            loading: true
+            loading: true,
         };
     }
 
@@ -19,19 +20,14 @@ class Follow extends Component {
         });
     }
 
-    getPostData = () => {
-
-        return {
-            follower_id: 1,
-            followed_id: 3
-        }
-    }
-
     async componentDidMount() {
-        // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNzA5OTZ9.a4vSqC0uKVpYB4vq_cnjefTaY5kGqk5jmS5oUFDo7j4';
-        //const users2 = (await API.get('/users')).data;
-        const isFollowing = (await API.post('/api/v1/checkfollowings/', this.getPostData(), { headers: { "Authorization": `Bearer ${token}` } })).data;
+        const followed  = this.props.followed;
+        const currentUser = authenticationService.getLoggedInUser();
+        const postData = {
+            follower_id: currentUser,
+            followed_id: followed
+        }
+        const isFollowing = (await API.post('/api/v1/checkfollowings/', postData, { headers: { "Authorization": authenticationService.getJwt() } })).data;
         console.log(isFollowing);
         this.setState({
             isFollowing: isFollowing.result,
@@ -45,11 +41,9 @@ class Follow extends Component {
         this.setState({
             loading: true
         });
-        // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNzA5OTZ9.a4vSqC0uKVpYB4vq_cnjefTaY5kGqk5jmS5oUFDo7j4';
 
         if (!this.state.isFollowing) {
-            API.post('/api/v1/followings', this.getPostData(), { headers: { "Authorization": `Bearer ${token}` } })
+            API.post('/api/v1/followings', this.getPostData(), { headers: { "Authorization": authenticationService.getJwt() } })
             .then((res) => {
                 this.setState({
                     isFollowing: true,
@@ -60,7 +54,7 @@ class Follow extends Component {
             });
 
         } else {
-            API.delete('/api/v1/unfollow', this.getPostData(), { headers: { "Authorization": `Bearer ${token}` } })
+            API.delete('/api/v1/unfollow', this.getPostData(), { headers: { "Authorization": authenticationService.getJwt() } })
             .then((res) => {
                 this.setState({
                     isFollowing: false,

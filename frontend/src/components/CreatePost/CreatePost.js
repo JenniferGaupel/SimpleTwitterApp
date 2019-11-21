@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
 import '../../styles/SimpleStyles.css';
+import { authenticationService } from '../../services/Auth';
 
 class CreatePost extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class CreatePost extends Component {
 
         return {
             post: this.state.postText, 
-            user_id: 2
+            _username: authenticationService.getLoggedInUser()
             
         }
     }
@@ -31,9 +32,7 @@ class CreatePost extends Component {
     handleSubmit = event => {
         event.preventDefault();
         console.log("Creating our post");
-        // Hardcoding for testing
-        let token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NzQzNTIxNzh9.mot78VjfPwP2qS4TTxxzxBPgTKXJCgx4IIDC8dmJ3qQ';
-        API.post('/api/v1/posts', this.getPostData(),{ headers: { "Authorization": `Bearer ${token}` }})
+        API.post('/api/v1/posts', this.getPostData(),{ headers: { "Authorization": authenticationService.getJwt() }})
             .then((res) => {
                 console.log(res);
                 message.success("New post succesful!");
