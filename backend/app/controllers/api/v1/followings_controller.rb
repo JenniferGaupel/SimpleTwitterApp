@@ -1,6 +1,6 @@
 class Api::V1::FollowingsController < ApplicationController
   before_action :authorize_request
-  before_action :set_following, only: [:show, :update, :destroy]
+ # before_action :set_following, only: [:show, :update, :destroy]
   before_action :find_user, except: %i[index]
 
   # GET /followings
@@ -17,15 +17,8 @@ class Api::V1::FollowingsController < ApplicationController
 
   # POST /followings
   def create
-    follower_id = params.delete(:follower_id)
-    followed_id = params.delete(:followed_id)
-    p "!!!!!!!!!!!!!!!"
-    p follower_id
-    p followed_id
-    @follower = User.find_by_id(follower_id)
-    @followed = User.find_by_id(followed_id)
-    p @follower
-    p @followed
+    # follower_id = params.delete(:follower_id)
+    # followed_id = params.delete(:followed_id)
     if @follower == nil and @followed == nil
       render json: { errors: "Error finding follower user or followed user" },
         status: :unprocessable_entity
@@ -61,10 +54,9 @@ class Api::V1::FollowingsController < ApplicationController
   def unfollow
     # Delete a following record to unfollow. 
     # Using instead of built-in destroy method as it uses the id and this needs to search on follower/followed ids
-    follower_id = params[:follower_id]
-    followed_id = params[:followed_id]
-
-    @following = Following.find_by(follower_id: follower_id, followed_id: followed_id)
+    follower = @follower.id
+    followed = @followed.id
+    @following = Following.find_by(follower_id: follower, followed_id: followed)
     @following.destroy
     render json: { msg: "User unfollowed" },
         status: :ok
@@ -73,11 +65,9 @@ class Api::V1::FollowingsController < ApplicationController
   # POST /checkfollowings/
   def check_following
     # Check to see if the user is already following another user
-    p params
-    follower_id = params[:follower_id]
-    followed_id = params[:followed_id]
-
-    @following = Following.find_by(follower_id: follower_id, followed_id: followed_id)
+    follower = @follower.id
+    followed = @followed.id
+    @following = Following.find_by(follower_id: follower, followed_id: followed)
     p @following
     if @following == nil
       render json: { result: false },
@@ -91,7 +81,8 @@ class Api::V1::FollowingsController < ApplicationController
   private
 
     def find_user
-      @user = User.find_by_username!(params[:_username])
+      @follower = User.find_by_username!(params[:follower])
+      @followed = User.find_by_username(params[:followed])
       rescue ActiveRecord::RecordNotFound
         render json: { errors: 'User not found' }, status: :not_found
     end

@@ -10,6 +10,7 @@ class Follow extends Component {
         this.state = {
             isFollowing: null,
             loading: true,
+            followed: null
         };
     }
 
@@ -24,8 +25,8 @@ class Follow extends Component {
         const followed  = this.props.followed;
         const currentUser = authenticationService.getLoggedInUser();
         const postData = {
-            follower_id: currentUser,
-            followed_id: followed
+            follower: currentUser,
+            followed: followed
         }
         const isFollowing = (await API.post('/api/v1/checkfollowings/', postData, { headers: { "Authorization": authenticationService.getJwt() } })).data;
         console.log(isFollowing);
@@ -41,9 +42,17 @@ class Follow extends Component {
         this.setState({
             loading: true
         });
+        
+        const followed  = this.props.followed;
+        const currentUser = authenticationService.getLoggedInUser();
+        const postData = {
+            follower: currentUser,
+            followed: followed        
+        }
 
         if (!this.state.isFollowing) {
-            API.post('/api/v1/followings', this.getPostData(), { headers: { "Authorization": authenticationService.getJwt() } })
+
+            API.post('/api/v1/followings', postData, { headers: { "Authorization": authenticationService.getJwt() } })
             .then((res) => {
                 this.setState({
                     isFollowing: true,
@@ -54,7 +63,8 @@ class Follow extends Component {
             });
 
         } else {
-            API.delete('/api/v1/unfollow', this.getPostData(), { headers: { "Authorization": authenticationService.getJwt() } })
+    
+            API.post('/api/v1/unfollow', postData, { headers: { "Authorization": authenticationService.getJwt() } })
             .then((res) => {
                 this.setState({
                     isFollowing: false,
@@ -72,11 +82,11 @@ class Follow extends Component {
             <div className="Follow">
                 <Form onSubmit={this.handleSubmit}>
                     {this.state.isFollowing ?
-                        <Button loading={this.state.loading} type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit">
                             Unfollow
                         </Button>
                         :
-                        <Button loading={this.state.loading} type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit">
                             Follow
                         </Button>
                     }
@@ -85,6 +95,5 @@ class Follow extends Component {
         )
     };
 }
-
 
 export default Follow;

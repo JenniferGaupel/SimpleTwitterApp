@@ -48,20 +48,23 @@ class Api::V1::PostsController < ApplicationController
     status: :ok
   end
 
-  # GET /feed/{username}
+  # GET /feed/
   def get_feed
     # Get all posts from the user's that I follow 
     followed_posts = Array.new
+    followed_user = Array.new
     user_id = @user.id
     @followings = Following.where(follower_id: user_id)
     @followings.each do |following|
       @posts = Post.where(user_id: following.followed_id)
       @posts.each do |post|
+        postUser = User.where(id: post.user_id)
+        followed_user.push(postUser.username)
         followed_posts.push(post)
       end
     end 
-    render json: followed_posts,
-    status: :ok 
+    
+    render json: followed_posts, status: :ok 
   end
 
   # GET /userposts

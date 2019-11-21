@@ -25,7 +25,7 @@ function App() {
           <Content>
             <Route exact path='/Signup/' component={Signup} />
             <Route exact path='/Login/' component={Login} />
-            <Route exact path='/Feed/:username' component={Feed} />
+            <Route exact path='/Feed/' component={Feed} />
             <Route exact path='/Users/' component={Users} />
             <Route exact path='/CreatePost/' component={CreatePost} />
             <Route exact path='/Follow/' component={Follow} />

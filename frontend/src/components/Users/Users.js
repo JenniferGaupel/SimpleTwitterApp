@@ -28,9 +28,10 @@ class Users extends Component {
                         <Link to={`/Profile/${user.username}`}>
                             {user.username} 
                         </Link>
-                    </p>
+                    </p> 
                 )) : <span>Loading...</span>
                 }
+            
             </div>
         )
     }

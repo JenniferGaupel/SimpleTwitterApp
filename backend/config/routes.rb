@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get '/feed', to: 'posts#get_feed'
       get '/userposts', to: 'posts#get_user_posts'
       post '/checkfollowings', to: 'followings#check_following'
-      delete '/unfollow', to: 'followings#unfollow'
+      post '/unfollow', to: 'followings#unfollow'
       get '/*a', to: 'application#not_found'
     end
   end
