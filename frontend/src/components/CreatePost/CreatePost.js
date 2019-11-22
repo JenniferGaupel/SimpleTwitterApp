@@ -24,7 +24,7 @@ class CreatePost extends Component {
 
         return {
             post: this.state.postText, 
-            _username: authenticationService.getLoggedInUser()
+            username: authenticationService.getLoggedInUser()
             
         }
     }

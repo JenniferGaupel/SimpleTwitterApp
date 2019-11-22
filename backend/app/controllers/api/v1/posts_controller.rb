@@ -1,7 +1,7 @@
 class Api::V1::PostsController < ApplicationController
   before_action :authorize_request 
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :find_user, except: %i[index]
+  before_action :find_user, except: %i[ index]
 
   # GET /posts
   def index
@@ -48,19 +48,16 @@ class Api::V1::PostsController < ApplicationController
     status: :ok
   end
 
-  # GET /feed/
+  # POST /feed/
   def get_feed
     # Get all posts from the user's that I follow 
     followed_posts = Array.new
-    followed_user = Array.new
     user_id = @user.id
     @followings = Following.where(follower_id: user_id)
     @followings.each do |following|
       @posts = Post.where(user_id: following.followed_id)
-      @posts.each do |post|
-        postUser = User.where(id: post.user_id)
-        followed_user.push(postUser.username)
-        followed_posts.push(post)
+       @posts.each do |post|
+         followed_posts.push(post)
       end
     end 
     
@@ -83,7 +80,7 @@ class Api::V1::PostsController < ApplicationController
   private
 
     def find_user
-      @user = User.find_by_username!(params[:_username])
+      @user = User.find_by_username!(params[:username])
       rescue ActiveRecord::RecordNotFound
         render json: { errors: 'User not found' }, status: :not_found
     end
@@ -94,6 +91,6 @@ class Api::V1::PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.permit(:post, :created_at, :user_id)
+      params.permit(:post, :created_at, :user_id, :username)
     end
 end

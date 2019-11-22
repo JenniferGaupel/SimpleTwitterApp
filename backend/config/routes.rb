@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :users, param: :_username
       resources :posts, param: :_username
       resources :followings
-      get '/feed', to: 'posts#get_feed'
+      post '/feed', to: 'posts#get_feed'
       get '/userposts', to: 'posts#get_user_posts'
       post '/checkfollowings', to: 'followings#check_following'
       post '/unfollow', to: 'followings#unfollow'

@@ -17,8 +17,6 @@ class Api::V1::FollowingsController < ApplicationController
 
   # POST /followings
   def create
-    # follower_id = params.delete(:follower_id)
-    # followed_id = params.delete(:followed_id)
     if @follower == nil and @followed == nil
       render json: { errors: "Error finding follower user or followed user" },
         status: :unprocessable_entity

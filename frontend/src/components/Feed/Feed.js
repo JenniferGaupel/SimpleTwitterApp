@@ -14,7 +14,11 @@ class Feed extends Component {
     }
 
     async componentDidMount() {
-        const posts = (await API.get('/api/v1/feed', { headers: { "Authorization": authenticationService.getJwt() } })).data;
+        const currentUser = authenticationService.getLoggedInUser();
+        const postData = {
+            username: currentUser
+        }
+        const posts = (await API.post('/api/v1/feed', postData, { headers: { "Authorization": authenticationService.getJwt() } })).data;
         this.setState({
             posts: posts
         });
@@ -25,9 +29,7 @@ class Feed extends Component {
             <div>
                 {this.state.posts ? this.state.posts.map(post => (
                     <p>
-                        
-                            {post} 
-                        
+                        {post.username}: {post.post} 
                     </p> 
                 )) : <span>Loading...</span>
                 }
