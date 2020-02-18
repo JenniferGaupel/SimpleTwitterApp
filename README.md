@@ -1,5 +1,6 @@
 # SimpleTwitterApp
 Simple Twitter clone using a Rails backend, React frontend, Postgres database, and utilizing Docker Compose
+
 ##Setup
 1. Install docker
 2. Clone this repo
