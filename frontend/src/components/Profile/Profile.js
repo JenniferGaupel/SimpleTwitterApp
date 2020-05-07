@@ -28,6 +28,7 @@ class Profile extends Component {
             <div>
                 {this.state.user ? (
                     <p>
+                        <img src="http://placekitten.com/200/300" />
                         Profile for: {this.state.user.username} 
                         {this.state.user.username != authenticationService.getLoggedInUser() &&
                             <Follow followed={this.state.user.username} />
