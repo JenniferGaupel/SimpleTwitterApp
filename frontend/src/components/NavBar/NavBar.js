@@ -10,6 +10,7 @@ class NavBar extends React.Component {
     state = {
         current: 'feed',
         loggedIn: authenticationService.isUserLoggedIn()
+
     };
 
     handleClick = e => {
@@ -22,6 +23,14 @@ class NavBar extends React.Component {
     render() {
         return (
             <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+                { authenticationService.isUserLoggedIn() &&
+                    <Menu.Item key="profile">
+                        <Link to={`/Profile/${authenticationService.getLoggedInUser()}`}>
+                            <Icon type="user" />
+                            Profile
+                        </Link>
+                    </Menu.Item>
+                }
                 { authenticationService.isUserLoggedIn() &&
                     <Menu.Item key="feed">
                         <Link to='/Feed'>
