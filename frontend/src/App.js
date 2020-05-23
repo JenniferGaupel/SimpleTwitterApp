@@ -23,6 +23,7 @@ function App() {
             <NavBar />
           </Header>
           <Content>
+            <Route exact path="/" component={Feed} />
             <Route exact path='/Signup/' component={Signup} />
             <Route exact path='/Login/' component={Login} />
             <Route exact path='/Feed/' component={Feed} />
