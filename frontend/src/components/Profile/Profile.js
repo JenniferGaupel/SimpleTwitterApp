@@ -5,6 +5,7 @@ import Follow from '../Follow/Follow';
 import CreatePost from '../CreatePost/CreatePost';
 import '../../styles/SimpleStyles.css';
 import { authenticationService } from '../../services/Auth';
+import UserPosts from "../UserPosts/UserPosts";
 
 class Profile extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class Profile extends Component {
     async componentDidMount() {
         const { match: {params } } = this.props;
         const user = (await API.get(`/api/v1/users/${params.username}`, { headers: { "Authorization": authenticationService.getJwt() } })).data;
+        
         this.setState({
             user: user
         });
@@ -25,11 +27,11 @@ class Profile extends Component {
 
     render() {
         return (
-            <div>
+            <div class='Profile'>
                 {this.state.user ? (
                     <p>
+                        <p class='Profile-name'>Profile for: {this.state.user.username}</p>
                         <img src="http://placekitten.com/200/300" />
-                        Profile for: {this.state.user.username} 
                         {this.state.user.username != authenticationService.getLoggedInUser() &&
                             <Follow followed={this.state.user.username} />
                         }
