@@ -6,3 +6,19 @@
     width: 20%;
     height: 50%;
 }
+
+.Profile{
+    border: 20px solid black;
+    padding-left: 10px;
+    text-align: left;
+    background-color: orange;
+}
+
+.Profile-name{
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium';
+}
+
+.ant-layout{
+    background-color: orange;
+}
