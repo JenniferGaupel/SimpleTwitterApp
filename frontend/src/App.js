@@ -12,6 +12,7 @@ import Follow from './components/Follow/Follow';
 import Logout from './components/Logout/Logout';
 import { Layout } from 'antd';
 import { Route } from 'react-router-dom';
+import UserPosts from './components/UserPosts/UserPosts';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
             <Route exact path='/Follow/' component={Follow} />
             <Route exact path='/Profile/:username' component={Profile} />
             <Route exact path='/Logout/' component={Logout} />
+            <Route exact path='/UserPosts/:username' component={UserPosts} />
           </Content>
       </Layout>
     </div>

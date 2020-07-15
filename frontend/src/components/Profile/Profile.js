@@ -3,7 +3,7 @@ import API from '../../Util/api';
 import { Button, Input, message, Form } from 'antd';
 import Follow from '../Follow/Follow';
 import CreatePost from '../CreatePost/CreatePost';
-import '../../styles/SimpleStyles.css';
+    import '../../styles/SimpleStyles.css';
 import { authenticationService } from '../../services/Auth';
 import UserPosts from "../UserPosts/UserPosts";
 
@@ -32,6 +32,7 @@ class Profile extends Component {
                     <p>
                         <p class='Profile-name'>Profile for: {this.state.user.username}</p>
                         <img src="http://placekitten.com/200/300" />
+                        <UserPosts username={this.state.user.username} />
                         {this.state.user.username != authenticationService.getLoggedInUser() &&
                             <Follow followed={this.state.user.username} />
                         }

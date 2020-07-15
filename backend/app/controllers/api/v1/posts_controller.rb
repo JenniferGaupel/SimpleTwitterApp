@@ -64,12 +64,12 @@ class Api::V1::PostsController < ApplicationController
     render json: followed_posts, status: :ok 
   end
 
-  # GET /userposts
+  # GET /UserPosts
   def get_user_posts
     # get all of a single user's posts
     user_posts = Array.new
-    user_id = params[:user_id]
-    @posts = Post.where(user_id: user_id)
+    user_name = params[:username]
+    @posts = Post.where(username: user_name)
     @posts.each do |post|
       user_posts.push(post)
     end 
