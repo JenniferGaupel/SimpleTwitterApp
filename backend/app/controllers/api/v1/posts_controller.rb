@@ -69,7 +69,7 @@ class Api::V1::PostsController < ApplicationController
     # get all of a single user's posts
     user_posts = Array.new
     user_name = params[:username]
-    @posts = Post.where(username: user_name)
+    @posts = Post.where(username: user_name).order(created_at: :desc)
     @posts.each do |post|
       user_posts.push(post)
     end 
