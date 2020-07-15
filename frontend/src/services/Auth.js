@@ -1,5 +1,3 @@
-import { useHistory } from 'react-router-dom';
-
 export const authenticationService = {
     logout,
     isUserLoggedIn,

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
-import { Button, Input, message, Form } from 'antd';
+import { Button, message, Form } from 'antd';
 import { authenticationService } from '../../services/Auth';
 
 class Follow extends Component {

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
-import { Button, Input, message, Form } from 'antd';
 import Follow from '../Follow/Follow';
-import CreatePost from '../CreatePost/CreatePost';
-    import '../../styles/SimpleStyles.css';
+import '../../styles/SimpleStyles.css';
 import { authenticationService } from '../../services/Auth';
 import UserPosts from "../UserPosts/UserPosts";
 
@@ -27,16 +25,16 @@ class Profile extends Component {
 
     render() {
         return (
-            <div class='Profile'>
+            <div className='Profile'>
                 {this.state.user ? (
-                    <p>
-                        <p class='Profile-name'>Profile for: {this.state.user.username}</p>
-                        <img src="http://placekitten.com/200/300" />
+                    <div>
+                        <p className='Profile-name'>Profile for: {this.state.user.username}</p>
+                        <img src="http://placekitten.com/200/300" alt="Avatar" />
                         <UserPosts username={this.state.user.username} />
                         {this.state.user.username != authenticationService.getLoggedInUser() &&
                             <Follow followed={this.state.user.username} />
                         }
-                    </p>
+                    </div>
                 ) : <span>Loading...</span>
                 }
             </div>

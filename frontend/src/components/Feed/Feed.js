@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
-import { Button, Input, message, Form } from 'antd';
-import { Link } from 'react-router-dom';
 import { authenticationService } from '../../services/Auth';
 
 class Feed extends Component {

@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
-import API from '../../Util/api';
-import { Button, Input, message, Form } from 'antd';
 import '../../styles/SimpleStyles.css';
 import { authenticationService } from '../../services/Auth';
-import Signup from "../Signup/Signup";
 
 class Logout extends Component {
     constructor(props) {
