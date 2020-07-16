@@ -4,6 +4,7 @@ import Follow from '../Follow/Follow';
 import '../../styles/SimpleStyles.css';
 import { authenticationService } from '../../services/Auth';
 import UserPosts from "../UserPosts/UserPosts";
+import { Avatar } from 'antd';
 
 class Profile extends Component {
     constructor(props) {
@@ -28,8 +29,8 @@ class Profile extends Component {
             <div className='Profile'>
                 {this.state.user ? (
                     <div>
-                        <p className='Profile-name'>Profile for: {this.state.user.username}</p>
-                        <img src="http://placekitten.com/200/300" alt="Avatar" />
+                        <Avatar src="http://placekitten.com/200/300" alt="Avatar" size="large" />
+                        <p>Profile for: {this.state.user.username}</p>
                         <UserPosts username={this.state.user.username} />
                         {this.state.user.username != authenticationService.getLoggedInUser() &&
                             <Follow followed={this.state.user.username} />

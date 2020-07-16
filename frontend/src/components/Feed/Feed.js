@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import { authenticationService } from '../../services/Auth';
+import { Comment, Avatar } from 'antd';
 
 class Feed extends Component {
     constructor(props) {
@@ -26,9 +27,20 @@ class Feed extends Component {
         return (
             <div>
                 {this.state.posts ? this.state.posts.map(post => (
-                    <p>
-                        {post.username}: {post.post} 
-                    </p> 
+                    <Comment
+                        author={<a>{post.username}</a>}
+                        avatar={
+                            <Avatar
+                              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                              alt="Author"
+                            />}
+                        content={
+                            <p>
+                                {post.post} 
+                            </p>
+                        }
+                    />
+ 
                 )) : <span>Loading...</span>
                 }
             

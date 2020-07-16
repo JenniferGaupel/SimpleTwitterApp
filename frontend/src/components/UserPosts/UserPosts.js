@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import API from '../../Util/api';
 import { authenticationService } from '../../services/Auth';
 import '../../styles/SimpleStyles.css';
+import {  Comment, Icon, Tooltip, Avatar } from 'antd';
 
 class UserPosts extends Component {
     constructor(props) {
@@ -22,11 +23,11 @@ class UserPosts extends Component {
 
     render() {
         return (
-            <div className='Post-align'>
+            <div>
                 {this.state.posts ? this.state.posts.map(post => (
-                    <p>
-                        {post.post}
-                    </p> 
+                    <Comment
+                        content={<p>{post.post}</p>}
+                    />
                 )) : <span>no posts...</span>
                 }
             </div>
