@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import API from '../../Util/api';
 import { Link } from 'react-router-dom';
 import { authenticationService } from '../../services/Auth';
+import { Avatar } from 'antd';
 
 class Users extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class Users extends Component {
             <div>
                 {this.state.users ? this.state.users.map(user => (
                     <p>
+                        <Avatar src="http://placekitten.com/200/300" alt="Avatar" size="large" />
                         <Link to={`/Profile/${user.username}`}>
                             {user.username} 
                         </Link>

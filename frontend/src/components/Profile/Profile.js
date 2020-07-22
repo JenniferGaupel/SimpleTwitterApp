@@ -26,7 +26,7 @@ class Profile extends Component {
 
     render() {
         return (
-            <div className='Profile'>
+            <div>
                 {this.state.user ? (
                     <div>
                         <Avatar src="http://placekitten.com/200/300" alt="Avatar" size="large" />

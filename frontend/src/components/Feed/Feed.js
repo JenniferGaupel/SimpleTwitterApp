@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import { authenticationService } from '../../services/Auth';
-import { Comment, Avatar } from 'antd';
+import { Comment, Avatar, Tooltip } from 'antd';
+import moment from 'moment';
 
 class Feed extends Component {
     constructor(props) {
@@ -30,10 +31,8 @@ class Feed extends Component {
                     <Comment
                         author={<a>{post.username}</a>}
                         avatar={
-                            <Avatar
-                              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                              alt="Author"
-                            />}
+                            <Avatar src="http://placekitten.com/200/300" alt="Avatar" size="large" />
+                        }
                         content={
                             <p>
                                 {post.post} 
