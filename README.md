@@ -1,5 +1,5 @@
-# SimpleTwitterApp
-Simple Twitter clone using a Rails backend, React frontend, Postgres database, and utilizing Docker Compose
+# Cattery
+Cat-based social app using a Rails backend, React frontend, Postgres database, and utilizing Docker Compose
 
 ## Setup
 1. Install Docker-ce
