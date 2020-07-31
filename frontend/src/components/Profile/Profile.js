@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from '../../Util/api';
 import Follow from '../Follow/Follow';
+import FollowList from '../FollowList/FollowList';
 import '../../styles/SimpleStyles.css';
 import { authenticationService } from '../../services/Auth';
 import UserPosts from "../UserPosts/UserPosts";
@@ -34,6 +35,9 @@ class Profile extends Component {
                         <UserPosts username={this.state.user.username} />
                         {this.state.user.username != authenticationService.getLoggedInUser() &&
                             <Follow followed={this.state.user.username} />
+                        }
+                        {this.state.user.username == authenticationService.getLoggedInUser() &&
+                            <FollowList username={this.state.user.username}/>
                         }
                     </div>
                 ) : <span>Loading...</span>

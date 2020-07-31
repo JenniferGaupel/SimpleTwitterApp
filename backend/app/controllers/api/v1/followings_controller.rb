@@ -1,7 +1,7 @@
 class Api::V1::FollowingsController < ApplicationController
   before_action :authorize_request
  # before_action :set_following, only: [:show, :update, :destroy]
-  before_action :find_user, except: %i[index]
+  before_action :find_user, except: %i[index, follow_list]
 
   # GET /followings
   def index
@@ -74,6 +74,22 @@ class Api::V1::FollowingsController < ApplicationController
       render json: { result: true },
       status: :ok
     end    
+  end
+
+  # GET /followlist/1
+  def follow_list
+    # Get all users that my user follows
+    follow_list_usernames = []
+    user = User.find_by_username(params[:username])
+    f_users = user.follows
+    p f_users
+    f_users.each do |followed_user|
+      username = User.find_by_id(followed_user.followed_id)
+      follow_list_usernames.push(username.username)
+    end
+    p follow_list_usernames
+    render json: follow_list_usernames,
+    status: :ok
   end
 
   private
