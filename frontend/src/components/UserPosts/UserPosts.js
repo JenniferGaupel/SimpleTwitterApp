@@ -26,6 +26,7 @@ class UserPosts extends Component {
             <div>
                 {this.state.posts ? this.state.posts.map(post => (
                     <Comment
+                        key={post.id}
                         content={<p>{post.post}</p>}
                     />
                 )) : <span>no posts...</span>

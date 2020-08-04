@@ -26,7 +26,8 @@ class FollowList extends Component {
         return (
             <div>
                 {this.state.followlists ? this.state.followlists.map(followlist => (
-                    <Comment
+                    <Comment 
+                        key={followlist}
                         content={<p>{followlist}</p>}
                     />
                 )) : <span>You aren't following anyone. <Link to='/Users'>Follow someone!</Link>

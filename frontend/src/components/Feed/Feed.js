@@ -29,6 +29,7 @@ class Feed extends Component {
             <div>
                 {this.state.posts ? this.state.posts.map(post => (
                     <Comment
+                        key={post.id}
                         author={<a>{post.username}</a>}
                         avatar={
                             <Avatar src="http://placekitten.com/200/300" alt="Avatar" size="large" />

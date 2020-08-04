@@ -24,7 +24,7 @@ class Users extends Component {
         return (
             <div>
                 {this.state.users ? this.state.users.map(user => (
-                    <p>
+                    <p key={user.id}>
                         <Avatar src="http://placekitten.com/200/300" alt="Avatar" size="large" />
                         <Link to={`/Profile/${user.username}`}>
                             {user.username} 
