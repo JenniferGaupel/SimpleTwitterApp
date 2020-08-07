@@ -24,6 +24,7 @@ class UserPosts extends Component {
     render() {
         return (
             <div>
+                <p>Your posts: </p>
                 {this.state.posts ? this.state.posts.map(post => (
                     <Comment
                         key={post.id}

@@ -25,6 +25,7 @@ class FollowList extends Component {
     render() {
         return (
             <div>
+                <p>Users you follow:</p>
                 {this.state.followlists ? this.state.followlists.map(followlist => (
                     <Comment 
                         key={followlist}
