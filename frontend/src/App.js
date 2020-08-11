@@ -19,11 +19,11 @@ function App() {
   const { Header, Content, Footer } = Layout;
   return (
     <div className="App">
-      <Layout>
+      <Layout style={{ minHeight: "100vh" }}>
           <Header>
             <NavBar />
           </Header>
-          <Content>
+          <Content style={{ margin: "0 0px" }}>
             <Route exact path="/" component={Feed} />
             <Route exact path='/Signup/' component={Signup} />
             <Route exact path='/Login/' component={Login} />

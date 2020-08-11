@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../../Util/api';
 import { authenticationService } from '../../services/Auth';
 import '../../styles/SimpleStyles.css';
-import {  Comment } from 'antd';
+import {  Avatar } from 'antd';
 
 class FollowList extends Component {
     constructor(props) {
@@ -27,10 +27,12 @@ class FollowList extends Component {
             <div>
                 <p>Users you follow:</p>
                 {this.state.followlists ? this.state.followlists.map(followlist => (
-                    <Comment 
-                        key={followlist}
-                        content={<p>{followlist}</p>}
-                    />
+                    <p key={followlist}>
+                        <Avatar src="http://placekitten.com/200/300" alt="Avatar" size="large" />
+                        <Link to={`/Profile/${followlist}`}>
+                            {followlist} 
+                        </Link>
+                    </p>
                 )) : <span>You aren't following anyone. <Link to='/Users'>Follow someone!</Link>
                 </span>
                 }
