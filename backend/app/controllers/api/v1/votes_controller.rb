@@ -1,4 +1,5 @@
 class Api::V1::VotesController < ApplicationController
+  before_action :authorize_request
   before_action :set_vote, only: [:show, :update, :destroy]
 
   # GET /votes
@@ -44,8 +45,16 @@ class Api::V1::VotesController < ApplicationController
       @vote = Vote.find(params[:id])
     end
 
+    def find_post
+      @post = Post.find(params[:post_id])
+    end
+
+    def find_user
+      @user = User.find(params[:user_id])
+    end
+
     # Only allow a trusted parameter "white list" through.
-    def vote_params
-      params.fetch(:vote, {})
+    def following_params
+      params.permit(:created_at, :user_id, :post_id, :vote, :vote_type)
     end
 end

@@ -56,5 +56,4 @@ class UserPosts extends Component {
     }
 }
 
-
 export default UserPosts;
