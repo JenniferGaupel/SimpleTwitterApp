@@ -1,6 +1,9 @@
 class Api::V1::VotesController < ApplicationController
   before_action :authorize_request
-  before_action :set_vote, only: [:show, :update, :destroy]
+  before_action :find_user
+  before_action :find_post
+  # before_action :set_vote, only: [:show, :update, :destroy]
+  
 
   # GET /votes
   def index
@@ -16,12 +19,19 @@ class Api::V1::VotesController < ApplicationController
 
   # POST /votes
   def create
-    @vote = Vote.new(vote_params)
-
-    if @vote.save
-      render json: @vote, status: :created, location: @vote
+    if @user == nil or @post == nil or params[:vote_type] == nil
+      render json: { errors: "Error voting on the post" },
+        status: :unprocessable_entity
     else
-      render json: @vote.errors, status: :unprocessable_entity
+      @vote = Vote.new()
+      @vote.user_id = @user.id
+      @vote.post_id = @post.id
+      @vote.vote_type = params[:vote_type]
+      if @vote.save
+        render json: @vote, status: :created
+      else
+        render json: @vote.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -37,6 +47,16 @@ class Api::V1::VotesController < ApplicationController
   # DELETE /votes/1
   def destroy
     @vote.destroy
+  end
+
+  # POST /checkvotes/
+  def check_votes
+    user = @user.id
+    post = @post.id
+    vote = Vote.find_by(post_id: post, user_id: user)
+    if vote != nil
+      render json: vote
+    end
   end
 
   private

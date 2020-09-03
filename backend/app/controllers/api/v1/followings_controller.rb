@@ -1,6 +1,5 @@
 class Api::V1::FollowingsController < ApplicationController
   before_action :authorize_request
- # before_action :set_following, only: [:show, :update, :destroy]
   before_action :find_user, except: %i[index, follow_list]
 
   # GET /followings
